@@ -16,7 +16,7 @@ class BienVenuePage extends StatelessWidget {
         child: Column(
           children: [
             SizedBox(
-              height: size.height * .6,
+              height: size.height * .65,
             ),
             const MyText(
               label: "Welcome to the",
@@ -25,7 +25,7 @@ class BienVenuePage extends StatelessWidget {
               fontSize: 15.0,
             ),
             const SizedBox(
-              height: 30.0,
+              height: 20.0,
             ),
             const MyText(
               label: "Tasky",
@@ -35,10 +35,12 @@ class BienVenuePage extends StatelessWidget {
               fontSize: 48.0,
             ),
             const SizedBox(
-              height: 50.0,
+              height: 30.0,
             ),
             MyTextButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.pushReplacementNamed(context, "/homepage");
+              },
               backgroundColor: Colors.white,
               primary: Colors.deepPurpleAccent,
               vertical: 15.0,
