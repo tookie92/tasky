@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tasky/ui/widgets/my_text.dart';
 import 'package:tasky/ui/widgets/my_text_button.dart';
+import 'package:tasky/utils/palette.dart';
 
 class BienVenuePage extends StatelessWidget {
   const BienVenuePage({Key? key}) : super(key: key);
@@ -12,7 +13,7 @@ class BienVenuePage extends StatelessWidget {
       body: Container(
         height: size.height,
         width: size.width,
-        decoration: const BoxDecoration(color: Colors.deepPurple),
+        decoration: const BoxDecoration(color: Palette.oxford),
         child: Column(
           children: [
             SizedBox(
@@ -41,8 +42,8 @@ class BienVenuePage extends StatelessWidget {
               onPressed: () {
                 Navigator.pushReplacementNamed(context, "/homepage");
               },
-              backgroundColor: Colors.white,
-              primary: Colors.deepPurpleAccent,
+              backgroundColor: Palette.blue,
+              primary: Palette.pumpkin,
               vertical: 15.0,
               horizontal: 80.0,
               label: "Get Started",
@@ -61,7 +62,7 @@ class BienVenuePage extends StatelessWidget {
                 MyTextButton(
                   horizontal: 0.0,
                   onPressed: () {},
-                  primary: Colors.white,
+                  primary: Palette.pumpkin,
                   label: "Sign in",
                 ),
               ],

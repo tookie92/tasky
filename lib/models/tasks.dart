@@ -1,5 +1,5 @@
 class TaskModel {
-  final String? id;
+  final int? id;
   final String? name;
   final String? status;
   final String? description;

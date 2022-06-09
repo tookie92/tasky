@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class MyText extends StatelessWidget {
   final String label;
@@ -28,7 +29,7 @@ class MyText extends StatelessWidget {
       label,
       maxLines: maxLines,
       overflow: textOverflow,
-      style: TextStyle(
+      style: GoogleFonts.montserrat(
         letterSpacing: letterSpacing,
         color: colors,
         fontSize: fontSize,

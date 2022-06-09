@@ -1,7 +1,7 @@
 import 'package:tasky/models/tasks.dart';
 
 class ProjectModel {
-  final String? id;
+  final int? id;
   final String? name;
   final String? description;
   final String? dateBegin;
