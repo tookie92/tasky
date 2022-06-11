@@ -1,19 +1,9 @@
-import 'package:tasky/models/tasks.dart';
-
 class ProjectModel {
-  final int? id;
-  final String? name;
-  final String? description;
-  final String? dateBegin;
-  final String? dateEnd;
-  final List<TaskModel>? tasks;
+  String? name;
+  String? description;
+  String? dateBegin;
+  String? dateEnd;
 
-  ProjectModel({
-    this.id,
-    this.name,
-    this.description,
-    this.dateBegin,
-    this.dateEnd,
-    this.tasks,
-  });
+  @override
+  String toString() => "$name, $description, $dateBegin, $dateEnd";
 }

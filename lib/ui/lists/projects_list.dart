@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
-import 'package:provider/provider.dart';
-import 'package:tasky/providers/get_list_projects.dart';
-import 'package:tasky/ui/widgets/my_text.dart';
+import 'package:tasky/schemas/subscription_project_schema.dart';
 import 'package:tasky/utils/palette.dart';
+
+import '../widgets/stateless_widgets/my_text.dart';
 
 class ProjectList extends StatelessWidget {
   const ProjectList({Key? key}) : super(key: key);
@@ -15,11 +16,28 @@ class ProjectList extends StatelessWidget {
       // color: Colors.white,
       height: size.height * .27,
       width: size.width,
-      child: Consumer<GetProjectProvider>(builder: (context, proje, child) {
-        return ListView(
+      child: Subscription(
+        options: SubscriptionOptions(
+          document: gql(SubscriptionProjectSchema.subscriptionProjectSchema),
+        ),
+        builder: (result) {
+          if (result.hasException) {
+            return Center(
+              child: Text(result.exception!.graphqlErrors[0].message),
+            );
+          }
+
+          if (result.isLoading) {
+            return const Center(
+              child: CircularProgressIndicator(color: Palette.pumpkin),
+            );
+          }
+
+          final project = result.data!["projects"];
+          return ListView(
             padding: const EdgeInsets.all(0.0),
             scrollDirection: Axis.horizontal,
-            children: List.generate(proje.getProjects.length, (index) {
+            children: List.generate(project.length, (index) {
               return Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 8.0),
                 child: Stack(
@@ -72,7 +90,7 @@ class ProjectList extends StatelessWidget {
                             height: 20.0,
                           ),
                           MyText(
-                            label: proje.getProjects[index].name!,
+                            label: project[index]["name"],
                             colors: Colors.white,
                             fontWeight: FontWeight.w600,
                             fontSize: 20.0,
@@ -81,8 +99,8 @@ class ProjectList extends StatelessWidget {
                             height: 5.0,
                           ),
                           MyText(
-                            label: proje.getProjects[index].tasks!.isNotEmpty
-                                ? "${proje.allProjects[index].tasks!.length} projets"
+                            label: project[index]["tasks"].isNotEmpty
+                                ? "${project[index]["tasks"].length} projets"
                                 : "No Projects",
                             colors: Colors.white,
                             fontWeight: FontWeight.w600,
@@ -105,8 +123,10 @@ class ProjectList extends StatelessWidget {
                   ],
                 ),
               );
-            }));
-      }),
+            }).reversed.toList(),
+          );
+        },
+      ),
     );
   }
 }

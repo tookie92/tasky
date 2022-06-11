@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:tasky/models/projects.dart';
 import 'package:tasky/ui/lists/projects_list.dart';
 import 'package:tasky/ui/lists/tasks_list.dart';
-import 'package:tasky/ui/widgets/my_text.dart';
+import 'package:tasky/ui/widgets/stateless_widgets/my_text.dart';
 import 'package:tasky/utils/palette.dart';
 
 class MyHomePage extends StatelessWidget {
@@ -9,6 +10,7 @@ class MyHomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final fields = ProjectModel();
     final size = MediaQuery.of(context).size;
     return Scaffold(
       body: Container(
@@ -52,13 +54,25 @@ class MyHomePage extends StatelessWidget {
                       height: size.height * .02,
                     ),
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      //mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         const MyText(
                           label: "Your Projects",
                           fontSize: 15.0,
                           colors: Colors.grey,
                           fontWeight: FontWeight.w600,
+                        ),
+                        IconButton(
+                            onPressed: () {
+                              Navigator.pushNamed(context, "/addPage");
+                            },
+                            icon: const Icon(
+                              Icons.add,
+                              color: Palette.pumpkin,
+                              size: 15.0,
+                            )),
+                        SizedBox(
+                          width: size.width * .34,
                         ),
                         TextButton(
                             onPressed: (() {}),

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:tasky/ui/widgets/my_text.dart';
-import 'package:tasky/ui/widgets/my_text_button.dart';
+import 'package:tasky/ui/widgets/stateless_widgets/my_text.dart';
+import 'package:tasky/ui/widgets/stateless_widgets/my_text_button.dart';
 import 'package:tasky/utils/palette.dart';
 
 class BienVenuePage extends StatelessWidget {

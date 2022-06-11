@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tasky/ui/widgets/my_text.dart';
+import 'package:tasky/ui/widgets/stateless_widgets/my_text.dart';
 
 class MyTextButton extends StatelessWidget {
   final Color? primary;
