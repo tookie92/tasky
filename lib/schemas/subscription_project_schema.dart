@@ -7,6 +7,7 @@ subscription AllProject($limit: Int){
     description
     date_begin
     date_end
+    categorie_id
     __typename
     tasks{
       id

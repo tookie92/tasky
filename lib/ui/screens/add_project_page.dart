@@ -15,7 +15,7 @@ class AddProjectPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     final fields = ProjectModel();
-    String? selectedValue = "A";
+    String? myselectedValue = "A";
 
     final formKey = GlobalKey<FormState>();
 
@@ -69,22 +69,24 @@ class AddProjectPage extends StatelessWidget {
                       const SizedBox(
                         height: 20.0,
                       ),
-                      MyTextForm(
-                        labelText: "Beginning",
-                        forValidator: "Please Enter the Date",
-                        onSaved: (newValue) => fields.dateBegin = newValue,
+                      MyDateField(
+                        onSaved: (newVal) => fields.dateBegin = newVal,
+                        initialDate: DateTime.now(),
+                        labelText: "Date of Begining",
                       ),
                       const SizedBox(
                         height: 20.0,
                       ),
-                      MyTextForm(
-                        labelText: "End",
-                        forValidator: "Please Enter the Date",
-                        onSaved: (newValue) => fields.dateEnd = newValue,
+                      MyDateField(
+                        onSaved: (newVal) => fields.dateEnd = newVal,
+                        initialDate:
+                            DateTime.now().add(const Duration(days: 2)),
+                        labelText: "End of the Project",
                       ),
                       const SizedBox(
                         height: 20.0,
                       ),
+
                       //Query for categorie
                       Query(
                           options: QueryOptions(
@@ -111,36 +113,10 @@ class AddProjectPage extends StatelessWidget {
                               ));
                             }
 
-                            return DropdownButtonFormField<String>(
-                              //value: selectedValue,
-                              dropdownColor: Palette.blue,
-                              style: const TextStyle(
-                                color: Colors.white,
-                              ),
-                              decoration: InputDecoration(
-                                fillColor: Palette.blue,
-                                labelStyle: const TextStyle(
-                                  color: Colors.white,
-                                ),
-                                filled: true,
-                                labelText: "Categorie",
-                                enabledBorder: OutlineInputBorder(
-                                  borderSide: const BorderSide(
-                                    color: Palette.blue,
-                                    width: 2.0,
-                                    style: BorderStyle.solid,
-                                  ),
-                                  borderRadius: BorderRadius.circular(10.0),
-                                ),
-                                focusedBorder: OutlineInputBorder(
-                                  borderSide: const BorderSide(
-                                    color: Palette.pumpkin,
-                                    width: 2.0,
-                                    style: BorderStyle.solid,
-                                  ),
-                                  borderRadius: BorderRadius.circular(10.0),
-                                ),
-                              ),
+                            return MyDropdownField(
+                              labelText: "Categories",
+                              forValidator: "Please choose a categorie ",
+                              onChanged: (value) => myselectedValue = value,
                               items: result.data!["categories"]
                                   .map<DropdownMenuItem<String>>(
                                 (e) {
@@ -150,23 +126,7 @@ class AddProjectPage extends StatelessWidget {
                                   );
                                 },
                               ).toList(),
-                              onChanged: (value) => selectedValue = value,
-                              validator: (value) => value!.isEmpty
-                                  ? "Please enter a categorie"
-                                  : null,
                             );
-                            // return DropdownButtonFormField<String>(
-                            //   //value: selectedValue,
-                            //   items: ["A", "B", "c"].map(
-                            //     (e) {
-                            //       return DropdownMenuItem<String>(
-                            //         value: e,
-                            //         child: Text(e),
-                            //       );
-                            //     },
-                            //   ).toList(),
-                            //   onChanged: (value) => selectedValue = value,
-                            // );
                           })
                     ],
                   ),
@@ -194,10 +154,10 @@ class AddProjectPage extends StatelessWidget {
                               : () {
                                   if (formKey.currentState!.validate()) {
                                     formKey.currentState!.save();
-                                    print("$selectedValue , $fields");
-                                    var id = int.parse(selectedValue!);
+                                    print("$myselectedValue , $fields");
+                                    var id = int.parse(myselectedValue!);
                                     add.addProvider(fields, id);
-                                    //formKey.currentState!.reset();
+                                    formKey.currentState!.reset();
                                   }
                                 },
                           label: add.getStatus == true ? "Loading" : "Save"),

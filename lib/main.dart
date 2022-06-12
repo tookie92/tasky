@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:intl/date_symbol_data_local.dart';
 import 'package:provider/provider.dart';
-import 'package:tasky/providers/add_project_provider.dart';
-import 'package:tasky/providers/get_list_projects.dart';
+import 'package:tasky/providers/all_providers.dart';
 import 'package:tasky/schemas/url_endpoint.dart';
 import 'package:tasky/ui/screens/add_project_page.dart';
 import 'package:tasky/ui/screens/bienvenue.dart';
 import 'package:tasky/ui/screens/home_page.dart';
 
 void main() {
+  initializeDateFormatting('fr', null);
   runApp(const MyApp());
 }
 
@@ -23,6 +24,7 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(create: (_) => GetProjectProvider()),
         ChangeNotifierProvider(create: (_) => AddProjectProvider()),
+        ChangeNotifierProvider(create: (_) => DeleteProjectProvider()),
       ],
       child: GraphQLProvider(
         client: endPoint.getClient(),
