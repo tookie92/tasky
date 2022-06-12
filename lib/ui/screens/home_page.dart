@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:tasky/models/projects.dart';
 import 'package:tasky/ui/lists/projects_list.dart';
 import 'package:tasky/ui/lists/tasks_list.dart';
 import 'package:tasky/ui/widgets/stateless_widgets/my_text.dart';
@@ -10,7 +9,6 @@ class MyHomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final fields = ProjectModel();
     final size = MediaQuery.of(context).size;
     return Scaffold(
       body: Container(
@@ -75,8 +73,9 @@ class MyHomePage extends StatelessWidget {
                           width: size.width * .34,
                         ),
                         TextButton(
-                            onPressed: (() {}),
-                            child: const MyText(label: "See all"))
+                          onPressed: (() {}),
+                          child: const MyText(label: "See all"),
+                        )
                       ],
                     ),
                     const SizedBox(height: 20.0),
