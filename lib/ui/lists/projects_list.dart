@@ -4,6 +4,8 @@ import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:tasky/providers/all_providers.dart';
 import 'package:tasky/schemas/subscription_project_schema.dart';
+import 'package:tasky/ui/screens/details/details_page.dart';
+import 'package:tasky/ui/screens/details/update_project_page.dart';
 import 'package:tasky/ui/widgets/stateless_widgets/allstateless.dart';
 import 'package:tasky/utils/palette.dart';
 
@@ -65,11 +67,17 @@ class ProjectList extends StatelessWidget {
                   colore = Colors.red;
               }
               return GestureDetector(
-                onDoubleTap: () {
-                  _showMyDialog(
-                      context, project[index]["id"], project[index]["name"]);
-                  Navigator.pop(context);
-                },
+                // onTap: () => Navigator.push(
+                //     context,
+                //     MaterialPageRoute(
+                //         builder: (_) => DetailsProjectPAge(
+                //               id: project[index]["id"],
+                //             ))),
+                // onDoubleTap: () {
+                //   _showMyDialog(
+                //       context, project[index]["id"], project[index]["name"]);
+                //   Navigator.pop(context);
+                // },
                 child: Padding(
                   padding: const EdgeInsets.only(right: 20.0),
                   child: Stack(
@@ -141,14 +149,58 @@ class ProjectList extends StatelessWidget {
                         ),
                       ),
                       Positioned(
-                        bottom: 35.0,
+                        bottom: 25.0,
                         child: Column(
                           children: [
                             Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               // crossAxisAlignment: CrossAxisAlignment.end,
                               children: [
+                                IconButton(
+                                  icon: Icon(
+                                    Icons.visibility,
+                                    color: colore,
+                                  ),
+                                  onPressed: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (_) => DetailsProjectPAge(
+                                          id: project[index]["id"],
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                ),
+                                IconButton(
+                                  icon: Icon(
+                                    Icons.edit,
+                                    color: colore,
+                                  ),
+                                  onPressed: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (_) => UpdateProjectPage(
+                                                id: project[index]["id"],
+                                              )),
+                                    );
+                                  },
+                                ),
+                                IconButton(
+                                  icon: Icon(
+                                    Icons.delete,
+                                    color: colore,
+                                  ),
+                                  onPressed: () async {
+                                    await _showMyDialog(
+                                        context,
+                                        project[index]["id"],
+                                        project[index]["name"]);
+                                  },
+                                ),
                                 const SizedBox(
-                                  width: 145.0,
+                                  width: 15.0,
                                 ),
                                 MyText(
                                     fontWeight: FontWeight.w600,
@@ -199,7 +251,7 @@ class ProjectList extends StatelessWidget {
           ),
           actions: <Widget>[
             TextButton(
-              child: const Text('Approve'),
+              child: const Text('Cancel'),
               onPressed: () {
                 Navigator.of(context).pop();
               },
@@ -208,6 +260,7 @@ class ProjectList extends StatelessWidget {
               child: const Text('Confirm'),
               onPressed: () {
                 context.read<DeleteProjectProvider>().deleteProject(id);
+                Navigator.pop(context);
               },
             ),
           ],

@@ -7,6 +7,7 @@ class MyDateField extends StatelessWidget {
   final void Function(String?)? onSaved;
   final String? labelText;
   final String? forValidator;
+  final String? initialValue;
   final DateTime? initialDate;
   const MyDateField({
     Key? key,
@@ -14,6 +15,7 @@ class MyDateField extends StatelessWidget {
     this.initialDate,
     this.labelText,
     this.forValidator,
+    this.initialValue,
   }) : super(key: key);
 
   @override
@@ -47,7 +49,7 @@ class MyDateField extends StatelessWidget {
       initialDate: initialDate ?? DateTime.now(),
       type: DateTimePickerType.dateTime,
       dateMask: 'dd/MM/yyyy',
-      initialValue: initialDate.toString(),
+      initialValue: initialValue ?? initialDate.toString(),
       firstDate: DateTime(2000),
       lastDate: DateTime(2100),
       //icon: const Icon(Icons.event),

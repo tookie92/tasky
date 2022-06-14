@@ -7,14 +7,18 @@ class MyTextForm extends StatelessWidget {
   final String? forValidator;
   final String? initialValue;
   final int? maxLines;
+  final TextEditingController? controller;
   final bool? obscureText;
   final void Function(String?)? onSaved;
+  final void Function(String?)? onChanged;
   const MyTextForm({
     this.obscureText,
     this.onSaved,
+    this.controller,
     this.initialValue,
     this.labelText,
     this.maxLines,
+    this.onChanged,
     this.forValidator,
     Key? key,
   }) : super(key: key);
@@ -23,6 +27,7 @@ class MyTextForm extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextFormField(
       initialValue: initialValue,
+      controller: controller,
       obscureText: obscureText ?? false,
       maxLines: maxLines,
       style: const TextStyle(color: Colors.white),
@@ -53,6 +58,7 @@ class MyTextForm extends StatelessWidget {
       validator: (value) =>
           value!.isEmpty ? forValidator ?? "Please Enter Something" : null,
       onSaved: onSaved,
+      onChanged: onChanged,
     );
   }
 }

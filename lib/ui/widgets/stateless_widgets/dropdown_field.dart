@@ -5,18 +5,21 @@ class MyDropdownField extends StatelessWidget {
   final void Function(String?)? onChanged;
   final List<DropdownMenuItem<String>>? items;
   final String? labelText;
+  final String? initialValue;
   final String? forValidator;
   const MyDropdownField({
     Key? key,
     required this.onChanged,
     required this.items,
     this.labelText,
+    this.initialValue,
     this.forValidator,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return DropdownButtonFormField<String>(
+      value: initialValue,
       dropdownColor: Palette.blue,
       style: const TextStyle(
         color: Colors.white,

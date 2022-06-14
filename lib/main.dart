@@ -25,6 +25,9 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => GetProjectProvider()),
         ChangeNotifierProvider(create: (_) => AddProjectProvider()),
         ChangeNotifierProvider(create: (_) => DeleteProjectProvider()),
+        ChangeNotifierProvider(create: (_) => NestedFormProvider()),
+        ChangeNotifierProvider(create: (_) => UpdateProjectProvider()),
+        ChangeNotifierProvider(create: (_) => UploadProvider()),
       ],
       child: GraphQLProvider(
         client: endPoint.getClient(),

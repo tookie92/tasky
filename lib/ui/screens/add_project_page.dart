@@ -24,148 +24,158 @@ class AddProjectPage extends StatelessWidget {
       child: Scaffold(
         backgroundColor: Palette.oxford,
         body: CustomScrollView(
-          // keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
           slivers: [
             const SliverAppBar(
               backgroundColor: Palette.blue,
-              expandedHeight: 50.0,
               floating: true,
               snap: true,
-              title: MyText(label: "Add a Project"),
+              flexibleSpace: FlexibleSpaceBar(
+                title: MyText(label: "Add a blaan"),
+              ),
             ),
             Form(
               key: formKey,
               child: SliverToBoxAdapter(
                 child: Padding(
-                  padding: const EdgeInsets.all(20.0),
+                  padding: const EdgeInsets.symmetric(horizontal: 20.0),
                   child: Column(
                     children: [
                       const SizedBox(
-                        height: 50.0,
-                      ),
-                      const MyText(
-                        label: "Product Identity Developer",
-                        colors: Colors.white,
-                        fontSize: 20.0,
-                        fontWeight: FontWeight.w600,
-                      ),
-                      const SizedBox(
-                        height: 50.0,
+                        height: 100.0,
                       ),
                       MyTextForm(
-                        labelText: "Name",
-                        forValidator: "Please Enter a Name",
+                        forValidator: "Please Insert a name",
                         onSaved: (newValue) => fields.name = newValue,
+                        labelText: "Name",
                       ),
                       const SizedBox(
                         height: 20.0,
                       ),
                       MyTextForm(
-                        maxLines: 3,
-                        labelText: "Description",
-                        forValidator: "Please Enter a Description",
+                        forValidator: "Please Insert a description",
                         onSaved: (newValue) => fields.description = newValue,
+                        labelText: "Description",
+                        maxLines: 4,
                       ),
                       const SizedBox(
                         height: 20.0,
                       ),
                       MyDateField(
-                        onSaved: (newVal) => fields.dateBegin = newVal,
                         initialDate: DateTime.now(),
-                        labelText: "Date of Begining",
+                        labelText: "Date of begin",
+                        onSaved: (newValue) => fields.dateBegin = newValue,
                       ),
                       const SizedBox(
                         height: 20.0,
                       ),
                       MyDateField(
-                        onSaved: (newVal) => fields.dateEnd = newVal,
                         initialDate:
                             DateTime.now().add(const Duration(days: 2)),
-                        labelText: "End of the Project",
+                        labelText: "Date of end",
+                        onSaved: (newValue) => fields.dateEnd = newValue,
                       ),
                       const SizedBox(
                         height: 20.0,
                       ),
-
                       //Query for categorie
                       Query(
-                          options: QueryOptions(
-                              document:
-                                  gql(GetCategoriesSchema.getCategoriesJson)),
-                          builder: (result, {refetch, fetchMore}) {
-                            if (result.hasException) {
-                              if (result.exception!.graphqlErrors.isEmpty) {
-                                return const Center(
-                                  child: MyText(label: "No Internet"),
-                                );
-                              } else {
-                                return MyText(
-                                    label: result
-                                        .exception!.graphqlErrors[0].message
-                                        .toString());
-                              }
-                            }
-
-                            if (result.isLoading) {
+                        options: QueryOptions(
+                            document:
+                                gql(GetCategoriesSchema.getCategoriesJson)),
+                        builder: (result, {refetch, fetchMore}) {
+                          if (result.hasException) {
+                            if (result.exception!.graphqlErrors.isEmpty) {
                               return const Center(
-                                  child: CircularProgressIndicator(
-                                color: Palette.pumpkin,
-                              ));
+                                child: MyText(label: "No Internet"),
+                              );
+                            } else {
+                              return MyText(
+                                  label: result
+                                      .exception!.graphqlErrors[0].message
+                                      .toString());
                             }
+                          }
 
-                            return MyDropdownField(
-                              labelText: "Categories",
-                              forValidator: "Please choose a categorie ",
-                              onChanged: (value) => myselectedValue = value,
-                              items: result.data!["categories"]
-                                  .map<DropdownMenuItem<String>>(
-                                (e) {
-                                  return DropdownMenuItem<String>(
-                                    value: e["id"].toString(),
-                                    child: MyText(label: "${e["name"]}"),
-                                  );
-                                },
-                              ).toList(),
-                            );
-                          })
+                          if (result.isLoading) {
+                            return const Center(
+                                child: CircularProgressIndicator(
+                              color: Palette.pumpkin,
+                            ));
+                          }
+
+                          return MyDropdownField(
+                            labelText: "Categories",
+                            forValidator: "Please choose a categorie ",
+                            onChanged: (value) => myselectedValue = value,
+                            items: result.data!["categories"]
+                                .map<DropdownMenuItem<String>>(
+                              (e) {
+                                return DropdownMenuItem<String>(
+                                  value: e["id"].toString(),
+                                  child: MyText(label: "${e["name"]}"),
+                                );
+                              },
+                            ).toList(),
+                          );
+                        },
+                      ),
+                      Consumer<AddProjectProvider>(
+                        builder: (context, add, child) {
+                          WidgetsBinding.instance.addPostFrameCallback((_) {
+                            if (add.getMessage != "") {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                      content: MyText(label: add.getMessage)));
+                              add.clear();
+                            }
+                          });
+                          return Row(
+                            //crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              // MyTextButton(
+                              //   onPressed: () {
+                              //     //var c = int.parse(myselectedValue!);
+                              //     if (formKey.currentState!.validate()) {
+                              //       formKey.currentState!.save();
+                              //       print(
+                              //           "$fields, ${project["id"]},$myselectedValue }");
+                              //     }
+                              //   },
+                              //   label: "Save",
+                              // ),
+                              GestureDetector(
+                                onTap: add.getStatus == true
+                                    ? null
+                                    : (() {
+                                        if (formKey.currentState!.validate()) {
+                                          formKey.currentState!.save();
+
+                                          var c = int.parse(myselectedValue!);
+                                          print(" $fields, $myselectedValue");
+
+                                          add.addProject(fields, c);
+                                        }
+                                      }),
+                                child: Container(
+                                  padding: const EdgeInsets.all(15.0),
+                                  margin: const EdgeInsets.all(30),
+                                  decoration: const BoxDecoration(
+                                      color: Palette.pumpkin),
+                                  child: Text(add.getStatus == true
+                                      ? "Loading"
+                                      : "Save"),
+                                ),
+                              )
+                            ],
+                          );
+                        },
+                      ),
                     ],
                   ),
                 ),
               ),
             ),
-            SliverFillRemaining(
-              hasScrollBody: false,
-              child: Consumer<AddProjectProvider>(
-                builder: (context, add, child) {
-                  WidgetsBinding.instance.addPostFrameCallback((_) {
-                    if (add.getMessage != '') {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(content: Text(add.getMessage)));
-
-                      add.clear();
-                    }
-                  });
-                  return Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      MyTextButton(
-                          onPressed: add.getStatus == true
-                              ? null
-                              : () {
-                                  if (formKey.currentState!.validate()) {
-                                    formKey.currentState!.save();
-                                    print("$myselectedValue , $fields");
-                                    var id = int.parse(myselectedValue!);
-                                    add.addProvider(fields, id);
-                                    formKey.currentState!.reset();
-                                  }
-                                },
-                          label: add.getStatus == true ? "Loading" : "Save"),
-                    ],
-                  );
-                },
-              ),
-            )
           ],
         ),
       ),

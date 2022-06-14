@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:tasky/providers/upload_provider.dart';
 import 'package:tasky/ui/lists/projects_list.dart';
 import 'package:tasky/ui/lists/tasks_list.dart';
 import 'package:tasky/ui/widgets/stateless_widgets/my_text.dart';
@@ -91,7 +93,9 @@ class MyHomePage extends StatelessWidget {
                           fontWeight: FontWeight.w600,
                         ),
                         TextButton(
-                            onPressed: (() {}),
+                            onPressed: (() {
+                              context.read<UploadProvider>().uploadtheFile();
+                            }),
                             child: const MyText(label: "See all"))
                       ],
                     ),

@@ -14,7 +14,7 @@ class AddProjectProvider extends ChangeNotifier {
 
   final EndPoint _point = EndPoint();
 
-  void addProvider(ProjectModel projectModel, int catId) async {
+  void addProject(ProjectModel projectModel, int catId) async {
     _status = true;
     _message = 'Please wait ....';
     notifyListeners();

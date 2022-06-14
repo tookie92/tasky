@@ -8,6 +8,7 @@ class MyText extends StatelessWidget {
   final double? letterSpacing;
   final Color? colors;
   final int? maxLines;
+  final TextAlign? textAlign;
   final FontWeight? fontWeight;
   final TextOverflow? textOverflow;
 
@@ -16,6 +17,7 @@ class MyText extends StatelessWidget {
     required this.label,
     this.fontSize,
     this.height,
+    this.textAlign,
     this.letterSpacing,
     this.maxLines,
     this.colors,
@@ -27,6 +29,7 @@ class MyText extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       label,
+      textAlign: textAlign,
       maxLines: maxLines,
       overflow: textOverflow,
       style: GoogleFonts.montserrat(
