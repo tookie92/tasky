@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:tasky/providers/upload_provider.dart';
 import 'package:tasky/ui/lists/projects_list.dart';
 import 'package:tasky/ui/lists/tasks_list.dart';
 import 'package:tasky/ui/widgets/stateless_widgets/my_text.dart';
@@ -85,18 +83,13 @@ class MyHomePage extends StatelessWidget {
                     const SizedBox(height: 10.0),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        const MyText(
+                      children: const [
+                        MyText(
                           label: "Your tasks",
                           fontSize: 18.0,
                           colors: Colors.white,
                           fontWeight: FontWeight.w600,
                         ),
-                        TextButton(
-                            onPressed: (() {
-                              context.read<UploadProvider>().uploadtheFile();
-                            }),
-                            child: const MyText(label: "See all"))
                       ],
                     ),
                     const SizedBox(height: 10.0),
