@@ -95,8 +95,10 @@ class UpdateProjectPage extends StatelessWidget {
                                 labelText: "Date of Begin",
                                 initialDate:
                                     DateTime.parse(project["date_begin"]),
-                                initialValue: DateFormat.yMd().format(
-                                    DateTime.parse(project["date_begin"])),
+                                initialValue: DateFormat.yMd()
+                                    .format(
+                                        DateTime.parse(project["date_begin"]))
+                                    .toString(),
                                 onSaved: (newValue) =>
                                     fields.dateBegin = newValue,
                               ),
@@ -107,8 +109,9 @@ class UpdateProjectPage extends StatelessWidget {
                                 labelText: "Date of End",
                                 initialDate:
                                     DateTime.parse(project["date_end"]),
-                                initialValue: DateFormat.yMd().format(
-                                    DateTime.parse(project["date_end"])),
+                                initialValue: DateFormat.yMd()
+                                    .format(DateTime.parse(project["date_end"]))
+                                    .toString(),
                                 onSaved: (newValue) =>
                                     fields.dateEnd = newValue,
                               ),
