@@ -12,7 +12,7 @@ class UpdateProjectProvider extends ChangeNotifier {
 
   final EndPoint _point = EndPoint();
 
-  void updateTask(int id, ProjectModel projectModel, int catId) async {
+  void updateProject(int id, ProjectModel projectModel, int catId) async {
     _status = true;
     _message = "Please Wait ...";
     notifyListeners();

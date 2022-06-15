@@ -116,44 +116,86 @@ class UpdateProjectPage extends StatelessWidget {
                                 height: 20.0,
                               ),
                               Query(
-                                  options: QueryOptions(
-                                      document: gql(GetCategoriesSchema
-                                          .getCategoriesJson)),
-                                  builder: (result, {refetch, fetchMore}) {
-                                    if (result.hasException) {
-                                      if (result
-                                          .exception!.graphqlErrors.isEmpty) {
-                                        return const Center(
-                                          child: MyText(label: "No Internet"),
-                                        );
-                                      } else {
-                                        return Center(
-                                          child: MyText(
-                                              label: result.exception!
-                                                  .graphqlErrors[0].message
-                                                  .toString()),
-                                        );
-                                      }
-                                    }
-
-                                    if (result.isLoading) {
+                                options: QueryOptions(
+                                    document: gql(
+                                        GetCategoriesSchema.getCategoriesJson)),
+                                builder: (result, {refetch, fetchMore}) {
+                                  if (result.hasException) {
+                                    if (result
+                                        .exception!.graphqlErrors.isEmpty) {
                                       return const Center(
-                                          child: CircularProgressIndicator());
+                                        child: MyText(label: "No Internet"),
+                                      );
+                                    } else {
+                                      return Center(
+                                        child: MyText(
+                                            label: result.exception!
+                                                .graphqlErrors[0].message
+                                                .toString()),
+                                      );
                                     }
+                                  }
 
-                                    return MyDropdownField(
-                                      initialValue: project["categorie_id"],
-                                      onChanged: (newValue) =>
-                                          myselectedValue = newValue,
-                                      items: result.data!["categories"]
-                                          .map<DropdownMenuItem<String>>((e) {
-                                        return DropdownMenuItem<String>(
-                                          value: e["id"].toString(),
-                                          child: MyText(label: e["name"]),
-                                        );
-                                      }).toList(),
-                                    );
-                                  })
+                                  if (result.isLoading) {
+                                    return const Center(
+                                        child: CircularProgressIndicator());
+                                  }
+
+                                  return MyDropdownField(
+                                    initialValue: "${project["categorie_id"]}",
+                                    onChanged: (newValue) =>
+                                        myselectedValue = newValue,
+                                    items: result.data!["categories"]
+                                        .map<DropdownMenuItem<String>>((e) {
+                                      return DropdownMenuItem<String>(
+                                        value: e["id"].toString(),
+                                        child: MyText(label: e["name"]),
+                                      );
+                                    }).toList(),
+                                  );
+                                },
+                              ),
+                              const SizedBox(
+                                height: 20.0,
+                              ),
+                              Consumer<UpdateProjectProvider>(
+                                builder: ((context, update, child) {
+                                  WidgetsBinding.instance.addPostFrameCallback(
+                                    (_) {
+                                      if (update.getMessage != "") {
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(SnackBar(
+                                                content: MyText(
+                                          label: update.getMessage,
+                                          colors: Colors.white,
+                                        )));
+                                        update.clear();
+                                      }
+                                    },
+                                  );
+                                  return MyTextButton(
+                                    onPressed: update.getStatus == true
+                                        ? null
+                                        : () {
+                                            if (formKey.currentState!
+                                                .validate()) {
+                                              formKey.currentState!.save();
+                                              var id =
+                                                  int.parse(myselectedValue!);
+                                              print(fields);
+                                              update.updateProject(
+                                                  project["id"], fields, id);
+                                            }
+                                          },
+                                    label: update.getStatus == true
+                                        ? "Loading"
+                                        : "Submit",
+                                    backgroundColor: Palette.pumpkin,
+                                    horizontal: 30.0,
+                                    primary: Colors.white,
+                                  );
+                                }),
+                              ),
                             ],
                           ),
                         ),
