@@ -5,10 +5,12 @@ class NestedFormProvider extends ChangeNotifier {
   final List<Map<String, String>> _fields = [];
   ValueChanged<List<Map<String, String>>> onUpdate = (value) {};
   final Uuid uuid = const Uuid();
+  final _formkey = GlobalKey<FormState>();
 
   List<Map<String, String>> get getList => _fields;
   ValueChanged<List<Map<String, String>>> get getUpdate => onUpdate;
   Uuid get getUuid => uuid;
+  GlobalKey<FormState> get getFormKey => _formkey;
 
   void addField() {
     _fields.add({uuid.v1(): ''});
