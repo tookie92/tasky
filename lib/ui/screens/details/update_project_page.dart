@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
-import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:tasky/models/projects.dart';
 import 'package:tasky/providers/all_providers.dart';
@@ -95,10 +94,7 @@ class UpdateProjectPage extends StatelessWidget {
                                 labelText: "Date of Begin",
                                 initialDate:
                                     DateTime.parse(project["date_begin"]),
-                                initialValue: DateFormat.yMd()
-                                    .format(
-                                        DateTime.parse(project["date_begin"]))
-                                    .toString(),
+                                initialValue: project["date_begin"],
                                 onSaved: (newValue) =>
                                     fields.dateBegin = newValue,
                               ),
@@ -109,9 +105,7 @@ class UpdateProjectPage extends StatelessWidget {
                                 labelText: "Date of End",
                                 initialDate:
                                     DateTime.parse(project["date_end"]),
-                                initialValue: DateFormat.yMd()
-                                    .format(DateTime.parse(project["date_end"]))
-                                    .toString(),
+                                initialValue: project["date_end"],
                                 onSaved: (newValue) =>
                                     fields.dateEnd = newValue,
                               ),

@@ -129,11 +129,14 @@ class ProjectList extends StatelessWidget {
                             const SizedBox(
                               height: 20.0,
                             ),
-                            MyText(
-                              label: project[index]["name"],
-                              colors: Colors.white,
-                              fontWeight: FontWeight.w600,
-                              fontSize: 20.0,
+                            SizedBox(
+                              width: 100.0,
+                              child: MyText(
+                                label: project[index]["name"],
+                                colors: Colors.white,
+                                fontWeight: FontWeight.w600,
+                                fontSize: 20.0,
+                              ),
                             ),
                             const SizedBox(
                               height: 5.0,
@@ -141,7 +144,7 @@ class ProjectList extends StatelessWidget {
                             MyText(
                               label:
                                   "from ${DateFormat('d.MM.yy').format(DateTime.parse(project[index]["date_begin"]))} to ${DateFormat('d.MM.yy').format(DateTime.parse(project[index]["date_end"]))}",
-                              colors: Palette.oxford,
+                              colors: Palette.pumpkin,
                               fontWeight: FontWeight.w600,
                               fontSize: 10.0,
                             ),
@@ -206,7 +209,9 @@ class ProjectList extends StatelessWidget {
                                     fontWeight: FontWeight.w600,
                                     label: project[index]["tasks"].isEmpty
                                         ? " No Tasks"
-                                        : "${project[index]["tasks"].length.toString()} Tasks")
+                                        : project[index]["tasks"].length == 1
+                                            ? "${project[index]["tasks"].length.toString()} Task"
+                                            : "${project[index]["tasks"].length.toString()} Tasks")
                               ],
                             ),
                             const SizedBox(
