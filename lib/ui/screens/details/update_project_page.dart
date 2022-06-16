@@ -179,7 +179,6 @@ class UpdateProjectPage extends StatelessWidget {
                                               formKey.currentState!.save();
                                               var id =
                                                   int.parse(myselectedValue!);
-                                              print(fields);
                                               update.updateProject(
                                                   project["id"], fields, id);
                                             }
