@@ -4,10 +4,9 @@ import 'package:provider/provider.dart';
 import 'package:tasky/models/projects.dart';
 import 'package:tasky/providers/add_project_provider.dart';
 import 'package:tasky/providers/nested_forms.dart';
+import 'package:tasky/schemas/projects/schemas_projet.dart';
 import 'package:tasky/ui/widgets/stateless_widgets/allstateless.dart';
 import 'package:tasky/utils/palette.dart';
-
-import '../../schemas/all_categories_schema.dart';
 
 class AddProjectPage extends StatelessWidget {
   const AddProjectPage({Key? key}) : super(key: key);

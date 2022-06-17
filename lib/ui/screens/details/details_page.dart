@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:tasky/models/tasks.dart';
-import 'package:tasky/schemas/get_one_projects.dart';
+import 'package:tasky/schemas/projects/schemas_projet.dart';
 import 'package:tasky/ui/widgets/stateless_widgets/allstateless.dart';
 import 'package:tasky/utils/palette.dart';
 

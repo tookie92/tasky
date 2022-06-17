@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:tasky/ui/lists/projects_list.dart';
-import 'package:tasky/ui/lists/tasks_list.dart';
+import 'package:provider/provider.dart';
 import 'package:tasky/ui/widgets/stateless_widgets/my_text.dart';
 import 'package:tasky/utils/palette.dart';
+
+import '../../providers/all_providers.dart';
 
 class MyHomePage extends StatelessWidget {
   const MyHomePage({Key? key}) : super(key: key);
@@ -10,6 +11,8 @@ class MyHomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
+    int currentIndex = 0;
+
     return Scaffold(
       backgroundColor: Palette.oxford,
       body: CustomScrollView(
@@ -35,7 +38,8 @@ class MyHomePage extends StatelessWidget {
                   CircleAvatar(
                     backgroundColor: Palette.oxford,
                     backgroundImage: NetworkImage(
-                        "https://images.pexels.com/photos/428361/pexels-photo-428361.jpeg?cs=srgb&dl=pexels-spencer-selover-428361.jpg&fm=jpg"),
+                      "https://images.pexels.com/photos/428361/pexels-photo-428361.jpeg?cs=srgb&dl=pexels-spencer-selover-428361.jpg&fm=jpg",
+                    ),
                     radius: 10.0,
                   )
                 ],
@@ -45,60 +49,86 @@ class MyHomePage extends StatelessWidget {
           SliverToBoxAdapter(
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20.0),
-              child: Column(
-                children: [
-                  SizedBox(
-                    height: size.height * .02,
-                  ),
-                  Row(
-                    //mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      const MyText(
-                        label: "Your Projects",
-                        fontSize: 15.0,
-                        colors: Colors.grey,
-                        fontWeight: FontWeight.w600,
-                      ),
-                      IconButton(
-                          onPressed: () {
-                            Navigator.pushNamed(context, "/addPage");
-                          },
-                          icon: const Icon(
-                            Icons.add,
-                            color: Palette.pumpkin,
-                            size: 15.0,
-                          )),
-                      SizedBox(
-                        width: size.width * .34,
-                      ),
-                      TextButton(
-                        onPressed: (() {}),
-                        child: const MyText(label: "See all"),
-                      )
-                    ],
-                  ),
-                  const SizedBox(height: 20.0),
-                  const ProjectList(),
-                  const SizedBox(height: 10.0),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: const [
-                      MyText(
-                        label: "Your tasks",
-                        fontSize: 18.0,
-                        colors: Colors.white,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 10.0),
-                  const TaskList()
-                ],
+              child: IndexedStack(
+                index: context.watch<NavigationProvider>().getIndex,
+                children: context.watch<NavigationProvider>().getList,
               ),
             ),
           )
         ],
       ),
+      bottomNavigationBar: NavigationBarTheme(
+        data: NavigationBarThemeData(
+          indicatorColor: Palette.pumpkin,
+          iconTheme: MaterialStateProperty.all(
+            const IconThemeData(color: Colors.white),
+          ),
+        ),
+        child: NavigationBar(
+          height: 60.0,
+          labelBehavior: NavigationDestinationLabelBehavior.alwaysHide,
+          animationDuration: const Duration(seconds: 2),
+          backgroundColor: Palette.blue,
+          onDestinationSelected: (index) {
+            context.read<NavigationProvider>().currentTab(index);
+          },
+          selectedIndex: context.watch<NavigationProvider>().getIndex,
+          destinations: const [
+            NavigationDestination(
+              icon: Icon(Icons.home_outlined),
+              selectedIcon: Icon(Icons.home_filled),
+              label: "home",
+            ),
+            NavigationDestination(
+              icon: Icon(Icons.favorite_border_outlined),
+              selectedIcon: Icon(Icons.favorite_sharp),
+              label: "home",
+            ),
+            NavigationDestination(
+              icon: Icon(Icons.home),
+              label: "home",
+            ),
+            NavigationDestination(
+              icon: Icon(Icons.home),
+              label: "home",
+            ),
+          ],
+        ),
+      ),
+      // bottomNavigationBar: BottomNavigationBar(
+      //   type: BottomNavigationBarType.fixed,
+      //   backgroundColor: Palette.blue,
+      //   showSelectedLabels: false,
+      //   showUnselectedLabels: false,
+      //   unselectedItemColor: Colors.white,
+      //   selectedItemColor: Palette.pumpkin,
+      //   onTap: (index) {
+      //     context.read<NavigationProvider>().currentTab(index);
+      //   },
+      //   currentIndex: context.watch<NavigationProvider>().getIndex,
+      //   items: const [
+      //     BottomNavigationBarItem(
+      //       icon: Icon(Icons.home),
+      //       label: "home",
+      //       backgroundColor: Palette.blue,
+      //     ),
+      //     BottomNavigationBarItem(
+      //       icon: Icon(Icons.home),
+      //       label: "other",
+      //       backgroundColor: Palette.blue,
+      //     ),
+      //     BottomNavigationBarItem(
+      //       icon: Icon(Icons.chat),
+      //       label: "chat",
+      //       backgroundColor: Palette.blue,
+      //     ),
+      //     BottomNavigationBarItem(
+      //       icon: Icon(Icons.person),
+      //       label: "person",
+      //       backgroundColor: Palette.blue,
+      //     ),
+      //   ],
+      // ),
     );
   }
 }

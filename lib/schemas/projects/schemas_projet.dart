@@ -1,4 +1,3 @@
-export 'url_endpoint.dart';
 export 'subscription_project_schema.dart';
 export 'get_projects_schema.dart';
 export 'all_categories_schema.dart';

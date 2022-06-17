@@ -3,11 +3,12 @@ import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:tasky/providers/all_providers.dart';
-import 'package:tasky/schemas/subscription_project_schema.dart';
 import 'package:tasky/ui/screens/details/details_page.dart';
 import 'package:tasky/ui/screens/details/update_project_page.dart';
 import 'package:tasky/ui/widgets/stateless_widgets/allstateless.dart';
 import 'package:tasky/utils/palette.dart';
+
+import '../../schemas/projects/schemas_projet.dart';
 
 class ProjectList extends StatelessWidget {
   const ProjectList({Key? key}) : super(key: key);
@@ -58,7 +59,7 @@ class ProjectList extends StatelessWidget {
                   colore = Palette.blue;
                   break;
                 case 2:
-                  colore = Palette.pumpkin;
+                  colore = Colors.deepPurple;
                   break;
                 case 3:
                   colore = Palette.black;
