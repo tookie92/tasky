@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
-import 'package:tasky/schemas/tasks/subscription_task_where.dart';
+import 'package:tasky/schemas/tasks/schema_tasks.dart';
 import 'package:tasky/ui/widgets/stateless_widgets/allstateless.dart';
 import 'package:tasky/utils/palette.dart';
 
-class TaskList extends StatelessWidget {
-  const TaskList({Key? key}) : super(key: key);
+class TaskListWhere extends StatelessWidget {
+  final int? id;
+  const TaskListWhere({Key? key, this.id}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +18,15 @@ class TaskList extends StatelessWidget {
       width: size.width,
       child: Subscription(
         options: SubscriptionOptions(
-            document: gql(SubscriptionTaskSchemas.subscriptionTaskJson)),
+            document:
+                gql(SubscriptionTaskWhereSchemas.subscriptionTaskWhereJson),
+            variables: {
+              "where": {
+                "project_id": {
+                  "_eq": id,
+                }
+              }
+            }),
         builder: (result) {
           if (result.hasException) {
             return Center(

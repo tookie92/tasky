@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:intl/intl.dart';
-import 'package:tasky/models/tasks.dart';
 import 'package:tasky/schemas/projects/schemas_projet.dart';
+import 'package:tasky/ui/lists/task_list_where.dart';
 import 'package:tasky/ui/widgets/stateless_widgets/allstateless.dart';
 import 'package:tasky/utils/palette.dart';
 
@@ -17,7 +17,6 @@ class DetailsProjectPAge extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    final taskval = TaskModel();
 
     return Scaffold(
       backgroundColor: Palette.oxford,
@@ -60,7 +59,6 @@ class DetailsProjectPAge extends StatelessWidget {
                       }
                       final myproject = result.data!["projects_by_pk"];
                       //print(myproject["name"]);
-                      TextEditingController name = TextEditingController();
 
                       return Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -106,7 +104,19 @@ class DetailsProjectPAge extends StatelessWidget {
                             //textAlign: TextAlign.justify,
                           ),
                           const SizedBox(
+                            height: 30.0,
+                          ),
+                          const MyText(
+                            label: "Task",
+                            colors: Colors.white,
+                            fontSize: 20.0,
+                            fontWeight: FontWeight.bold,
+                          ),
+                          const SizedBox(
                             height: 20.0,
+                          ),
+                          TaskListWhere(
+                            id: myproject["id"],
                           ),
                         ],
                       );
