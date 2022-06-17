@@ -3,9 +3,9 @@ import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:tasky/models/projects.dart';
 import 'package:tasky/providers/all_providers.dart';
+import 'package:tasky/schemas/projects/schemas_projet.dart';
 import 'package:tasky/utils/palette.dart';
 
-import '../../../schemas/schemas.dart';
 import '../../widgets/stateless_widgets/allstateless.dart';
 
 class UpdateProjectPage extends StatelessWidget {

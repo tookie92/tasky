@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
-import 'package:tasky/schemas/schemas.dart';
+import 'package:tasky/schemas/projects/schemas_projet.dart';
+
+import '../schemas/url_endpoint.dart';
 
 class DeleteProjectProvider extends ChangeNotifier {
   bool _status = false;
