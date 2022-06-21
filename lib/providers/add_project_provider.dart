@@ -23,7 +23,7 @@ class AddProjectProvider extends ChangeNotifier {
 
     QueryResult resulte = await client.value.query(
       QueryOptions(
-        document: gql(GetTaskSchema.getTaskJson),
+        document: gql(GetProjectSchema.getProjectJson),
       ),
     );
 

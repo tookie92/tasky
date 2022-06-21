@@ -10,9 +10,6 @@ class MyHomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
-    int currentIndex = 0;
-
     return Scaffold(
       backgroundColor: Palette.oxford,
       body: CustomScrollView(
@@ -47,16 +44,21 @@ class MyHomePage extends StatelessWidget {
             ),
           ),
           SliverToBoxAdapter(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20.0),
-              child: IndexedStack(
-                index: context.watch<NavigationProvider>().getIndex,
-                children: context.watch<NavigationProvider>().getList,
-              ),
+            child: IndexedStack(
+              index: context.watch<NavigationProvider>().getIndex,
+              children: context.watch<NavigationProvider>().getList,
             ),
           )
         ],
       ),
+      floatingActionButton: context.watch<NavigationProvider>().getIndex == 1
+          ? FloatingActionButton(
+              onPressed: () async {
+                context.read<CalendarProvider>().getTask();
+              },
+              child: const Icon(Icons.refresh),
+            )
+          : null,
       bottomNavigationBar: NavigationBarTheme(
         data: NavigationBarThemeData(
           indicatorColor: Palette.pumpkin,
@@ -80,8 +82,8 @@ class MyHomePage extends StatelessWidget {
               label: "home",
             ),
             NavigationDestination(
-              icon: Icon(Icons.favorite_border_outlined),
-              selectedIcon: Icon(Icons.favorite_sharp),
+              icon: Icon(Icons.calendar_month_outlined),
+              selectedIcon: Icon(Icons.calendar_month),
               label: "home",
             ),
             NavigationDestination(
@@ -95,40 +97,6 @@ class MyHomePage extends StatelessWidget {
           ],
         ),
       ),
-      // bottomNavigationBar: BottomNavigationBar(
-      //   type: BottomNavigationBarType.fixed,
-      //   backgroundColor: Palette.blue,
-      //   showSelectedLabels: false,
-      //   showUnselectedLabels: false,
-      //   unselectedItemColor: Colors.white,
-      //   selectedItemColor: Palette.pumpkin,
-      //   onTap: (index) {
-      //     context.read<NavigationProvider>().currentTab(index);
-      //   },
-      //   currentIndex: context.watch<NavigationProvider>().getIndex,
-      //   items: const [
-      //     BottomNavigationBarItem(
-      //       icon: Icon(Icons.home),
-      //       label: "home",
-      //       backgroundColor: Palette.blue,
-      //     ),
-      //     BottomNavigationBarItem(
-      //       icon: Icon(Icons.home),
-      //       label: "other",
-      //       backgroundColor: Palette.blue,
-      //     ),
-      //     BottomNavigationBarItem(
-      //       icon: Icon(Icons.chat),
-      //       label: "chat",
-      //       backgroundColor: Palette.blue,
-      //     ),
-      //     BottomNavigationBarItem(
-      //       icon: Icon(Icons.person),
-      //       label: "person",
-      //       backgroundColor: Palette.blue,
-      //     ),
-      //   ],
-      // ),
     );
   }
 }

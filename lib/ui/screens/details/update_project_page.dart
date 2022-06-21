@@ -91,7 +91,7 @@ class UpdateProjectPage extends StatelessWidget {
                                 height: 20.0,
                               ),
                               MyDateField(
-                                labelText: "Date of Begin",
+                                labelDate: "Date of Begin",
                                 initialDate:
                                     DateTime.parse(project["date_begin"]),
                                 initialValue: project["date_begin"],
@@ -102,7 +102,7 @@ class UpdateProjectPage extends StatelessWidget {
                                 height: 20.0,
                               ),
                               MyDateField(
-                                labelText: "Date of End",
+                                labelDate: "Date of End",
                                 initialDate:
                                     DateTime.parse(project["date_end"]),
                                 initialValue: project["date_end"],

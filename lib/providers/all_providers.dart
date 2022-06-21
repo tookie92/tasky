@@ -4,3 +4,4 @@ export 'delete_projects_provider.dart';
 export 'nested_forms.dart';
 export 'update_project_provider.dart';
 export 'navigation_provider.dart';
+export 'calendar_provider.dart';

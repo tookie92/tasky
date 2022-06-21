@@ -66,7 +66,7 @@ class AddProjectPage extends StatelessWidget {
                           height: 20.0,
                         ),
                         MyDateField(
-                          labelText: "Date of Begin",
+                          labelDate: "Date of Begin",
                           initialDate: DateTime.now(),
                           onSaved: (newValue) => fields.dateBegin = newValue,
                         ),
@@ -74,7 +74,7 @@ class AddProjectPage extends StatelessWidget {
                           height: 20.0,
                         ),
                         MyDateField(
-                          labelText: "Date of End",
+                          labelDate: "Date of End",
                           initialDate:
                               DateTime.now().add(const Duration(days: 1)),
                           onSaved: (newValue) => fields.dateEnd = newValue,

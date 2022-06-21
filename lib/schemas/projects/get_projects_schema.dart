@@ -1,5 +1,5 @@
-class GetTaskSchema {
-  static String getTaskJson = r"""
+class GetProjectSchema {
+  static String getProjectJson = r"""
 query AllProject{
   projects{
     id
@@ -7,16 +7,9 @@ query AllProject{
     description
     date_begin
     date_end
+    categorie_id
     __typename
-    tasks{
-      id
-      name
-      description
-      status
-      date_debut
-      date_fin
-      __typename
-    }
+   
   } 
 }
 """;

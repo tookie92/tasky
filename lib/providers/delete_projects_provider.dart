@@ -22,7 +22,7 @@ class DeleteProjectProvider extends ChangeNotifier {
     ValueNotifier<GraphQLClient> client = endPoint.getClient();
 
     QueryResult resulte = await client.value
-        .query(QueryOptions(document: gql(GetTaskSchema.getTaskJson)));
+        .query(QueryOptions(document: gql(GetProjectSchema.getProjectJson)));
 
     QueryResult result = await client.value.mutate(
       MutationOptions(

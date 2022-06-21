@@ -5,7 +5,8 @@ import '../../../utils/palette.dart';
 
 class MyDateField extends StatelessWidget {
   final void Function(String?)? onSaved;
-  final String? labelText;
+  final String? labelDate;
+  final String? labelHour;
   final String? forValidator;
   final String? initialValue;
   final DateTime? initialDate;
@@ -13,7 +14,8 @@ class MyDateField extends StatelessWidget {
     Key? key,
     required this.onSaved,
     this.initialDate,
-    this.labelText,
+    this.labelDate,
+    this.labelHour,
     this.forValidator,
     this.initialValue,
   }) : super(key: key);
@@ -28,7 +30,7 @@ class MyDateField extends StatelessWidget {
           color: Colors.white,
         ),
         filled: true,
-        labelText: labelText,
+        // labelText: labelText,
         enabledBorder: OutlineInputBorder(
           borderSide: const BorderSide(
             color: Palette.blue,
@@ -47,14 +49,14 @@ class MyDateField extends StatelessWidget {
         ),
       ),
       initialDate: initialDate ?? DateTime.now(),
-      type: DateTimePickerType.dateTime,
+      type: DateTimePickerType.dateTimeSeparate,
       dateMask: 'dd/MM/yyyy',
       initialValue: initialValue ?? initialDate.toString(),
       firstDate: DateTime(2000),
       lastDate: DateTime(2100),
       //icon: const Icon(Icons.event),
-      dateLabelText: 'Date',
-      timeLabelText: "Hour",
+      dateLabelText: labelDate,
+      timeLabelText: labelHour,
       // onChanged: (val) => print(val),
       validator: (value) =>
           value!.isEmpty ? forValidator ?? "Please a date" : null,

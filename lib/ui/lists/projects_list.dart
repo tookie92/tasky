@@ -122,8 +122,8 @@ class ProjectList extends StatelessWidget {
                                 color: Colors.white.withOpacity(0.3),
                                 borderRadius: BorderRadius.circular(10.0),
                               ),
-                              child: const Icon(
-                                Icons.abc_sharp,
+                              child: Icon(
+                                Icons.adaptive.share_outlined,
                                 color: Colors.white,
                               ),
                             ),
