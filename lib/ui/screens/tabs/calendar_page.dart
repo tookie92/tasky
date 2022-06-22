@@ -6,8 +6,8 @@ import 'package:syncfusion_flutter_calendar/calendar.dart';
 import 'package:tasky/providers/all_providers.dart';
 import 'package:tasky/utils/palette.dart';
 
-import '../../models/meetings.dart';
-import '../widgets/stateless_widgets/allstateless.dart';
+import '../../../models/meetings.dart';
+import '../../widgets/stateless_widgets/allstateless.dart';
 
 class CalendarPage extends StatelessWidget {
   const CalendarPage({Key? key}) : super(key: key);

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:tasky/ui/screens/calendar_page.dart';
-import 'package:tasky/ui/screens/home_screen.dart';
+import 'package:tasky/ui/screens/tabs/calendar_page.dart';
+import 'package:tasky/ui/screens/tabs/home_screen.dart';
+import 'package:tasky/ui/screens/tabs/kanban_tab.dart';
 import 'package:tasky/ui/widgets/stateless_widgets/allstateless.dart';
 
 class NavigationProvider extends ChangeNotifier {
@@ -9,12 +10,7 @@ class NavigationProvider extends ChangeNotifier {
   final screens = [
     const HomeScreen(),
     const CalendarPage(),
-    const Center(
-      child: MyText(
-        label: "trois",
-        fontSize: 30.0,
-      ),
-    ),
+    const KanbanTab(),
     const Center(
       child: MyText(
         label: "quatre",

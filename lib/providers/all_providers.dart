@@ -5,3 +5,4 @@ export 'nested_forms.dart';
 export 'update_project_provider.dart';
 export 'navigation_provider.dart';
 export 'calendar_provider.dart';
+export 'kanban_provider.dart';

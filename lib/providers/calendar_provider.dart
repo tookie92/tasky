@@ -10,8 +10,7 @@ import '../models/models.dart';
 
 class CalendarProvider extends ChangeNotifier {
   String _message = "";
-  // ignore: prefer_final_fields
-  List<Meeting> _collection = [];
+
   dynamic _list = [];
   // ignore: unused_field
   final dynamic _slist = [];
@@ -59,7 +58,7 @@ class CalendarProvider extends ChangeNotifier {
   List<CalendarView> get getViews => _allowedViews;
 
   String get getMessage => _message;
-  List<Meeting> get getCollection => _collection;
+
   // gettter end
 
   final EndPoint _point = EndPoint();
@@ -84,9 +83,6 @@ class CalendarProvider extends ChangeNotifier {
     }
   }
 
-//Quatsch
-
-//End of Quatsch
   //get the datas
   dynamic fetchDatas() {
     if (_list.isNotEmpty) {

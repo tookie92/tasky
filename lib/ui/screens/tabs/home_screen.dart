@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:tasky/utils/palette.dart';
 
-import '../lists/lists.dart';
-import '../widgets/stateless_widgets/allstateless.dart';
+import '../../lists/lists.dart';
+import '../../widgets/stateless_widgets/allstateless.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
