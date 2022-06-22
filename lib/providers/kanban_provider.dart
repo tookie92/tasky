@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import '../ui/widgets/stateless_widgets/allstateless.dart';
 
 class KanbanProvider extends ChangeNotifier {
-  final List<DragAndDropList>? _icontents = [];
+  List<DragAndDropList>? _icontents =;
   List<DragAndDropList> _contents = List.generate(3, (index) {
     return DragAndDropList(
       header: MyText(colors: Colors.white, label: 'Header $index'),
@@ -73,9 +73,7 @@ class KanbanProvider extends ChangeNotifier {
             child: const MyText(colors: Colors.white, label: '3'),
           ),
         ]));
-        
-    return ocontents;
-    
+  
   }
 
   onItemReorder(
