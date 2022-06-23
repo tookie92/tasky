@@ -16,7 +16,7 @@ class UpdateProjectPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final formKey = context.watch<NestedFormProvider>().getFormKey;
     final fields = ProjectModel();
-    final isKeyboard = MediaQuery.of(context).viewInsets.bottom != 0;
+    // final isKeyboard = MediaQuery.of(context).viewInsets.bottom != 0;
     return Scaffold(
       backgroundColor: Palette.oxford,
       body: GestureDetector(

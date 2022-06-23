@@ -1,91 +1,51 @@
-import 'package:drag_and_drop_lists/drag_and_drop_item.dart';
-import 'package:drag_and_drop_lists/drag_and_drop_list.dart';
-import 'package:drag_and_drop_lists/drag_and_drop_list_interface.dart';
+import 'package:drag_and_drop_lists/drag_and_drop_lists.dart';
 import 'package:flutter/material.dart';
+import 'package:tasky/models/data.dart';
 
-import '../ui/widgets/stateless_widgets/allstateless.dart';
+import '../models/draggable_model.dart';
 
 class KanbanProvider extends ChangeNotifier {
-  List<DragAndDropList>? _icontents =;
-  List<DragAndDropList> _contents = List.generate(3, (index) {
-    return DragAndDropList(
-      header: MyText(colors: Colors.white, label: 'Header $index'),
-      children: <DragAndDropItem>[
-        DragAndDropItem(
-          child: MyText(colors: Colors.white, label: '$index.1'),
-        ),
-        DragAndDropItem(
-          child: MyText(colors: Colors.white, label: '$index.2'),
-        ),
-        DragAndDropItem(
-          child: MyText(colors: Colors.white, label: '$index.3'),
-        ),
-      ],
-    );
-  });
+  List<DragAndDropList> contents = [];
 
-  List<DragAndDropList> get getContent => _contents;
+  List<DragAndDropList> get getContent => contents;
 
   void initial() {
-    _contents = List.generate(3, (index) {
-      return DragAndDropList(
-        header: MyText(colors: Colors.white, label: 'Header $index'),
-        children: <DragAndDropItem>[
-          DragAndDropItem(
-            child: MyText(colors: Colors.white, label: '$index.1'),
-          ),
-          DragAndDropItem(
-            child: MyText(colors: Colors.white, label: '$index.2'),
-          ),
-          DragAndDropItem(
-            child: MyText(colors: Colors.white, label: '$index.3'),
-          ),
-        ],
-      );
-    });
-
+    contents = allLists.map(buildList).toList();
     notifyListeners();
   }
 
-  dynamic getAll() {
-    if (_icontents!.isNotEmpty) {
-      final data = _icontents;
-
-      return data;
-    } else {
-      return <DragAndDropListInterface>[];
-    }
-  }
-
-  List<DragAndDropList> getAlli() {
-    List<DragAndDropList> ocontents = [];
-
-    ocontents.add(DragAndDropList(
-        header: const MyText(label: "hewader"),
-        children: <DragAndDropItem>[
-          DragAndDropItem(
-            child: const MyText(colors: Colors.white, label: '1'),
+  DragAndDropList buildList(DraggableList list) => DragAndDropList(
+        header: Container(
+          padding: const EdgeInsets.all(8),
+          child: Text(
+            list.header,
+            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
           ),
-          DragAndDropItem(
-            child: const MyText(colors: Colors.white, label: '2'),
-          ),
-          DragAndDropItem(
-            child: const MyText(colors: Colors.white, label: '3'),
-          ),
-        ]));
-  
-  }
-
+        ),
+        children: list.items
+            .map((item) => DragAndDropItem(
+                  child: ListTile(
+                    leading: Image.network(
+                      item.urlImage,
+                      width: 40,
+                      height: 40,
+                      fit: BoxFit.cover,
+                    ),
+                    title: Text(item.title),
+                  ),
+                ))
+            .toList(),
+      );
   onItemReorder(
       int oldItemIndex, int oldListIndex, int newItemIndex, int newListIndex) {
-    var movedItem = _icontents![oldListIndex].children.removeAt(oldItemIndex);
-    _icontents![newListIndex].children.insert(newItemIndex, movedItem);
+    var movedItem = contents[oldListIndex].children.removeAt(oldItemIndex);
+    contents[newListIndex].children.insert(newItemIndex, movedItem);
     notifyListeners();
   }
 
   onListReorder(int oldListIndex, int newListIndex) {
-    var movedList = _icontents!.removeAt(oldListIndex);
-    _icontents!.insert(newListIndex, movedList);
+    var movedList = contents.removeAt(oldListIndex);
+    contents.insert(newListIndex, movedList);
     notifyListeners();
   }
 }

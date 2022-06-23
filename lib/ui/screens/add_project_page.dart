@@ -13,7 +13,7 @@ class AddProjectPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
+    //final size = MediaQuery.of(context).size;
     final fields = ProjectModel();
     final isKeyboard = MediaQuery.of(context).viewInsets.bottom != 0;
     String? myselectedValue = "1";
@@ -151,7 +151,6 @@ class AddProjectPage extends StatelessWidget {
                                       if (formKey.currentState!.validate()) {
                                         formKey.currentState!.save();
                                         var id = int.parse(myselectedValue!);
-                                        print(fields);
                                         add.addProject(fields, id);
                                       }
                                     },

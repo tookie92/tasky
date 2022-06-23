@@ -14,15 +14,31 @@ class KanbanTab extends StatelessWidget {
       WidgetsBinding.instance.addPostFrameCallback((_) {
         if (isActive == false) {
           value.initial();
+          Future.delayed(const Duration(seconds: 3), () => isActive = true);
         }
       });
-      //print(value.getContent);
       return SizedBox(
         height: size.height,
         child: DragAndDropLists(
-          children: value.getAll(),
+          children: value.getContent,
           onItemReorder: value.onItemReorder,
           onListReorder: value.onListReorder,
+          axis: Axis.horizontal,
+          listWidth: 250,
+          listDraggingWidth: 250,
+          listDecoration: BoxDecoration(
+            color: Colors.grey[200],
+            borderRadius: const BorderRadius.all(Radius.circular(7.0)),
+            boxShadow: const <BoxShadow>[
+              BoxShadow(
+                color: Colors.black45,
+                spreadRadius: 3.0,
+                blurRadius: 6.0,
+                offset: Offset(2, 3),
+              ),
+            ],
+          ),
+          listPadding: const EdgeInsets.all(8.0),
         ),
       );
     });

@@ -39,7 +39,6 @@ class DeleteProjectProvider extends ChangeNotifier {
       }
       notifyListeners();
     } else {
-      print(result.data);
       _message = "Client Delete";
       _status = false;
       notifyListeners();
