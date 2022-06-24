@@ -28,7 +28,6 @@ class KanbanTab extends StatelessWidget {
           listDraggingWidth: 250,
           listDecoration: BoxDecoration(
             color: Colors.grey[200],
-            borderRadius: const BorderRadius.all(Radius.circular(7.0)),
             boxShadow: const <BoxShadow>[
               BoxShadow(
                 color: Colors.black45,
